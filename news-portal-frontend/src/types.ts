@@ -1,4 +1,3 @@
-
 export interface Post {
   id: string;
   title: string;
@@ -20,7 +19,7 @@ export interface PostComment {
   id: string;
   postId: string;
   author: string;
-  message: string
+  message: string;
 }
 
 export type PostCommentMutation = Omit<PostComment, 'id'>;

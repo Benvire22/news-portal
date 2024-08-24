@@ -11,10 +11,12 @@ import {
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import { Link } from 'react-router-dom';
-import { useAppDispatch } from '../../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
 import { deletePost, fetchPosts } from '../postsThunks';
 import imageNotFound from '../../../assets/images/image-not-found.jpg';
 import dayjs from 'dayjs';
+import { selectDeleteLoading } from '../postsSlice';
+import { LoadingButton } from '@mui/lab';
 
 interface Props {
   id: string;
@@ -29,6 +31,7 @@ const StyledButton = {
 
 const PostItem: React.FC<Props> = ({ id, title, image, createdAt }) => {
   const dispatch = useAppDispatch();
+  const isLoading = useAppSelector(selectDeleteLoading);
   let postImage = imageNotFound;
 
   if (image) {
@@ -67,10 +70,17 @@ const PostItem: React.FC<Props> = ({ id, title, image, createdAt }) => {
             alignItems: 'flex-end',
           }}
         >
-          <Button color="error" sx={StyledButton} onClick={onDelete}>
-            Delete post
-            <DeleteOutlineIcon />
-          </Button>
+          <LoadingButton
+            type="button"
+            loading={isLoading}
+            loadingPosition="end"
+            endIcon={<DeleteOutlineIcon />}
+            onClick={onDelete}
+            color="error"
+            sx={StyledButton}
+          >
+            <span>Delete post</span>
+          </LoadingButton>
           <Button component={Link} sx={StyledButton} to={`news/${id}`}>
             Read More
             <ArrowForwardIcon />

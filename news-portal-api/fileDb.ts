@@ -106,7 +106,7 @@ const fileDb = {
       const deletedComment = data.comments.splice(index, 1);
 
       await this.save();
-      return deletedComment[index];
+      return deletedComment;
     }
 
     return null;

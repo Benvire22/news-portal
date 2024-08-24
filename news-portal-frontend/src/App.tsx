@@ -20,7 +20,7 @@ const App = () => {
             path="*"
             element={
               <Typography variant="h1" textAlign="center" color="red">
-                Guestbook
+                Not found
               </Typography>
             }
           />

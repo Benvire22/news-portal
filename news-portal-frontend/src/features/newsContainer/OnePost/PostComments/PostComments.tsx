@@ -9,19 +9,33 @@ import { useParams } from 'react-router-dom';
 const PostComments: React.FC = () => {
   const postComments = useAppSelector(selectComments);
   const dispatch = useAppDispatch();
-  const {id} = useParams() as { id: string };
+  const { id } = useParams() as { id: string };
 
   useEffect(() => {
-    void dispatch(fetchComments(id));
-  }, [dispatch, id])
+    try {
+      void dispatch(fetchComments(id)).unwrap();
+    } catch (e) {
+      console.error(e);
+    }
+  }, [dispatch, id]);
 
   const onDelete = async (commentId: string) => {
-    await dispatch(deleteComment(commentId));
-    await dispatch(fetchComments(id));
+    try {
+      await dispatch(deleteComment(commentId)).unwrap();
+      await dispatch(fetchComments(id)).unwrap();
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return postComments.length > 0 ? (
-    <Grid item container spacing={1} sx={{width: '100%', my: 4}} justifyContent="center">
+    <Grid
+      item
+      container
+      spacing={1}
+      sx={{ width: '100%', my: 4 }}
+      justifyContent="center"
+    >
       {postComments.map((comment) => (
         <CommentItem
           key={comment.id}

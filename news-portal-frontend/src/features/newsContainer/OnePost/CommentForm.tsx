@@ -20,15 +20,19 @@ const CommentForm: React.FC = () => {
   });
 
   const submitFormHandler = async (e: React.FormEvent) => {
-    e.preventDefault();
-    await dispatch(createComment({ ...state }));
-    await dispatch(fetchComments(id));
-
-    setState({
-      postId: id,
-      author: '',
-      message: '',
-    });
+    try {
+      e.preventDefault();
+      await dispatch(createComment({ ...state }));
+      await dispatch(fetchComments(id));
+    } catch (e) {
+      console.error(e);
+    } finally {
+      setState({
+        postId: id,
+        author: '',
+        message: '',
+      });
+    }
   };
 
   const inputChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

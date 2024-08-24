@@ -29,6 +29,7 @@ const NewPost: React.FC = () => {
       description: '',
       image: null,
     });
+
     navigate('/');
   };
 

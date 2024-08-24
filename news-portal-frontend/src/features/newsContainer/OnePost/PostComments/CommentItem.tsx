@@ -1,14 +1,16 @@
 import React from 'react';
 import {
-  Button,
   Card,
   CardActions,
   CardContent,
   CardHeader,
   Grid,
-  Typography
+  Typography,
 } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
+import { useAppSelector } from '../../../../app/hooks';
+import { selectDeleteLoadingComment } from '../commentsSlice';
+import { LoadingButton } from '@mui/lab';
 
 interface Props {
   author: string;
@@ -16,9 +18,11 @@ interface Props {
   onDelete: () => void;
 }
 
-const CommentItem: React.FC<Props> = ({ author, message , onDelete}) => {
+const CommentItem: React.FC<Props> = ({ author, message, onDelete }) => {
+  const isDeleting = useAppSelector(selectDeleteLoadingComment);
+
   return (
-    <Grid item sx={{width: '90%'}}>
+    <Grid item sx={{ width: '90%' }}>
       <Card
         variant="outlined"
         sx={{
@@ -50,10 +54,17 @@ const CommentItem: React.FC<Props> = ({ author, message , onDelete}) => {
               alignItems: 'flex-end',
             }}
           >
-            <Button color="error" sx={{ fontSize: '20px', display: 'flex', gap: 2 }} onClick={onDelete}>
-              Delete
-              <DeleteOutlineIcon />
-            </Button>
+            <LoadingButton
+              type="button"
+              loading={isDeleting}
+              loadingPosition="end"
+              endIcon={<DeleteOutlineIcon />}
+              sx={{ fontSize: '20px', display: 'flex', gap: 2 }}
+              onClick={onDelete}
+              color="error"
+            >
+              <span>Delete</span>
+            </LoadingButton>
           </CardActions>
         </CardContent>
       </Card>

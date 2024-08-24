@@ -14,34 +14,45 @@ const NewsPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    void dispatch(fetchPosts());
+    try {
+      void dispatch(fetchPosts());
+    } catch (e) {
+      console.error(e);
+    }
   }, [dispatch]);
 
   return (
-    <Grid container direction="column" spacing={2}>
+    <>
       {isLoading && <MySpinner />}
-      <Grid item container justifyContent="space-between" alignItems="center">
-        <Grid item>
-          <Typography variant="h4">News</Typography>
+      <Grid container direction="column" spacing={2}>
+        <Grid item container justifyContent="space-between" alignItems="center">
+          <Grid item>
+            <Typography variant="h4">News</Typography>
+          </Grid>
+          <Grid item>
+            <Button
+              color="primary"
+              sx={{ fontSize: '20px', fontWeight: 'bold' }}
+              component={Link}
+              to="/add-new"
+            >
+              Add new post
+            </Button>
+          </Grid>
         </Grid>
-        <Grid item>
-          <Button color="primary" component={Link} to="/add-new">
-            Add new post
-          </Button>
+        <Grid item container spacing={2}>
+          {posts.map((post) => (
+            <PostItem
+              key={post.id}
+              id={post.id}
+              title={post.title}
+              image={post.image}
+              createdAt={post.createdAt}
+            />
+          ))}
         </Grid>
       </Grid>
-      <Grid item container spacing={2}>
-        {posts.map((post) => (
-          <PostItem
-            key={post.id}
-            id={post.id}
-            title={post.title}
-            image={post.image}
-            createdAt={post.createdAt}
-          />
-        ))}
-      </Grid>
-    </Grid>
+    </>
   );
 };
 
