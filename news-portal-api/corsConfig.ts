@@ -1,6 +1,6 @@
 import { CorsOptions } from 'cors';
 
-export const whitelist: string[] = [];
+export const whitelist: string[] = ['http://localhost:5173'];
 export const corsOptions: CorsOptions = {
   origin: (origin, callback) => {
     if (!origin || whitelist.indexOf(origin) !== -1) {
