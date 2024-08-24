@@ -1,4 +1,4 @@
-export interface New {
+export interface Post {
   id: string;
   title: string;
   description: string;
@@ -6,11 +6,11 @@ export interface New {
   createdAt: string;
 }
 
-export type NewMutation = Omit<New, 'id'>;
+export type PostMutation = Omit<Post, 'id' | 'createdAt'>;
 
 export interface NewComment {
   id: string;
-  newId: string;
+  postId: string;
   author: string;
   message: string | null;
 }
