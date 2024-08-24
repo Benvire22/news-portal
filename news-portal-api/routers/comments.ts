@@ -1,7 +1,6 @@
 import express from 'express';
 import fileDb from '../fileDb';
 import { NewComment, NewCommentMutation } from '../types';
-import newsRouter from './news';
 
 const commentsRouter = express.Router();
 
@@ -17,7 +16,6 @@ commentsRouter.get('/', async (req, res) => {
 });
 
 commentsRouter.post('/', async (req, res) => {
-  const postId = req.query.postId as string;
   if (!req.body.message) {
     return res.status(400).send({ error: 'Message are required!' });
   }
@@ -25,7 +23,7 @@ commentsRouter.post('/', async (req, res) => {
   const author = req.body.author ? req.body.author : 'Anonymous';
 
   const newComment: NewCommentMutation = {
-    postId,
+    postId: req.body.postId,
     author,
     message: req.body.message,
   };
@@ -34,7 +32,7 @@ commentsRouter.post('/', async (req, res) => {
   return res.send(savedPost);
 });
 
-newsRouter.delete('/:id', async (req, res) => {
+commentsRouter.delete('/:id', async (req, res) => {
   const commentId = req.params.id;
   const deletedComment = await fileDb.deleteComment(commentId);
 

@@ -15,3 +15,12 @@ export interface PostMutation {
   description: string;
   image: File | null;
 }
+
+export interface PostComment {
+  id: string;
+  postId: string;
+  author: string;
+  message: string
+}
+
+export type PostCommentMutation = Omit<PostComment, 'id'>;

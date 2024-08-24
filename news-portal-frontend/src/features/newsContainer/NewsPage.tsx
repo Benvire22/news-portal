@@ -4,11 +4,13 @@ import { useAppDispatch, useAppSelector } from '../../app/hooks';
 import { useEffect } from 'react';
 import PostItem from './components/PostItem';
 import { Post } from '../../types';
-import { selectPosts } from './postsSlice';
+import { selectFetchLoading, selectPosts } from './postsSlice';
 import { fetchPosts } from './postsThunks';
+import MySpinner from '../../UI/MySpinner/MySpinner';
 
 const NewsPage = () => {
   let posts: Post[] = useAppSelector(selectPosts);
+  const isLoading = useAppSelector(selectFetchLoading);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -17,6 +19,7 @@ const NewsPage = () => {
 
   return (
     <Grid container direction="column" spacing={2}>
+      {isLoading && <MySpinner />}
       <Grid item container justifyContent="space-between" alignItems="center">
         <Grid item>
           <Typography variant="h4">News</Typography>

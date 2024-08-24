@@ -57,7 +57,7 @@ const PostItem: React.FC<Props> = ({ id, title, image, createdAt }) => {
         />
         <CardContent sx={{ flexGrow: 1 }}>
           <CardHeader title={title} />
-          <strong>{dayjs(createdAt).format('YYYY-MM-DD:HH')}</strong>
+          <strong>{dayjs(createdAt).format('YYYY-MM-DD HH:MM')}</strong>
         </CardContent>
         <CardActions
           sx={{

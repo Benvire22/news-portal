@@ -1,17 +1,17 @@
-import { Post } from '../../types';
+import { FullPost, Post } from '../../types';
 import { createSlice } from '@reduxjs/toolkit';
 import { deletePost, fetchOnePost, fetchPosts } from './postsThunks';
 
-export interface GuestbookState {
+export interface NewsPortalState {
   postsData: Post[];
-  onePost: Post | null;
+  onePost: FullPost | null;
   fetchLoading: boolean;
   errorFetching: boolean;
   createLoading: boolean;
   deleteLoading: boolean;
 }
 
-export const initialState: GuestbookState = {
+export const initialState: NewsPortalState = {
   postsData: [],
   onePost: null,
   fetchLoading: false,

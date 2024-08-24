@@ -2,24 +2,22 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../../axiosApi';
 import { FullPost, Post, PostMutation } from '../../types';
 
+export const fetchPosts = createAsyncThunk('posts/fetchAll', async () => {
+  const { data: posts } = await axiosApi.get<Post[] | null>('/news');
 
-export const fetchPosts = createAsyncThunk(
-  'posts/fetchAll',
-  async () => {
-    const { data: posts } = await axiosApi.get<Post[] | null>('/news');
+  if (!posts) {
+    return [];
+  }
 
-    if (!posts) {
-      return [];
-    }
-
-    return posts;
-  },
-);
+  return posts;
+});
 
 export const fetchOnePost = createAsyncThunk(
   'posts/fetchOne',
   async (postId: string) => {
-    const { data: post } = await axiosApi.get<FullPost | null>(`/news/${postId}`);
+    const { data: post } = await axiosApi.get<FullPost | null>(
+      `/news/${postId}`,
+    );
 
     if (!post) {
       return null;
