@@ -12,7 +12,7 @@ export interface NewComment {
   id: string;
   postId: string;
   author: string;
-  message: string | null;
+  message: string;
 }
 
-export type CommentMutation = Omit<Comment, 'id'>;
+export type NewCommentMutation = Omit<NewComment, 'id'>;

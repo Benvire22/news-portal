@@ -1,5 +1,5 @@
 import fs, { promises as fsPromises } from 'fs';
-import { NewComment, Post, PostMutation } from './types';
+import { NewComment, NewCommentMutation, Post, PostMutation } from './types';
 import { randomUUID } from 'node:crypto';
 import path from 'path';
 import config from './config';
@@ -33,7 +33,7 @@ const fileDb = {
     return data.posts;
   },
   async getOnePost(id: string) {
-    const onePost = data.posts.find(post => post.id === id);
+    const onePost = data.posts.find((post) => post.id === id);
 
     if (!onePost) {
       return null;
@@ -44,7 +44,7 @@ const fileDb = {
   async deletePost(id: string) {
     const posts = [...data.posts];
     const comments = [...data.comments];
-    const index = posts.findIndex(post => post.id === id);
+    const index = posts.findIndex((post) => post.id === id);
     const imagePath = posts[index].image;
 
     if (index > -1) {
@@ -59,16 +59,13 @@ const fileDb = {
         });
       }
 
-      data.comments = comments.filter(comment => comment.postId !== id);
+      data.comments = comments.filter((comment) => comment.postId !== id);
 
       await this.save();
       return posts[index];
     }
 
     return null;
-  },
-  async getComments(id: string) {
-    return data.comments.map((comment) => comment.postId === id);
   },
   async save() {
     await fsPromises.writeFile(fileName, JSON.stringify(data, null, 2));
@@ -83,6 +80,32 @@ const fileDb = {
     data.posts.push(newPost);
     await this.save();
     return newPost;
+  },
+  async getComments(id: string) {
+    return data.comments.filter((comment) => comment.postId === id);
+  },
+  async addNewComment(comment: NewCommentMutation) {
+    const newComment: NewComment = {
+      id: randomUUID(),
+      ...comment,
+    };
+
+    data.comments.push(newComment);
+    await this.save();
+    return newComment;
+  },
+  async deleteComment(id: string) {
+    const comments = [...data.comments];
+    const index = comments.findIndex((comment) => comment.id === id);
+
+    if (index > -1) {
+      const deletedComment = data.comments.splice(index, 1);
+
+      await this.save();
+      return deletedComment[index];
+    }
+
+    return null;
   },
 };
 

@@ -50,11 +50,12 @@ newsRouter.delete('/:id', async (req, res) => {
   const deletedPost = await fileDb.deletePost(postId);
 
   if (!deletedPost) {
-    return res.status(400).send({ error: 'This post is not deleted or not found!' });
+    return res
+      .status(400)
+      .send({ error: 'This post is not deleted or not found!' });
   }
 
   return res.send(deletedPost);
 });
-
 
 export default newsRouter;
