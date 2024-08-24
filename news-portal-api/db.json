@@ -1,4 +1,26 @@
 {
-  "posts": [],
+  "posts": [
+    {
+      "id": "0e80b09d-d2ec-447e-9701-4d107e319683",
+      "title": "knjnkjnjnjk",
+      "description": "jjkjn jk kj",
+      "image": null,
+      "createdAt": "2024-08-24T10:24:32.560Z"
+    },
+    {
+      "id": "f95fa378-1f07-4975-bbc0-4739e7346042",
+      "title": "Ivan",
+      "description": "fwefewfwe",
+      "image": null,
+      "createdAt": "2024-08-24T10:49:37.539Z"
+    },
+    {
+      "id": "65fbc6f9-db1b-4a96-8c31-cbb407f12f5e",
+      "title": "fwefwe",
+      "description": "fwefwew",
+      "image": "images/68e7349f-22bc-4342-8ed9-5160f3785589.png",
+      "createdAt": "2024-08-24T10:49:52.148Z"
+    }
+  ],
   "comments": []
 }

@@ -19,7 +19,7 @@ const NewsPage = () => {
     <Grid container direction="column" spacing={2}>
       <Grid item container justifyContent="space-between" alignItems="center">
         <Grid item>
-          <Typography variant="h4">Posts</Typography>
+          <Typography variant="h4">News</Typography>
         </Grid>
         <Grid item>
           <Button color="primary" component={Link} to="/add-new">
@@ -27,7 +27,7 @@ const NewsPage = () => {
           </Button>
         </Grid>
       </Grid>
-      <Grid item container spacing={1}>
+      <Grid item container spacing={2}>
         {posts.map((post) => (
           <PostItem
             key={post.id}
