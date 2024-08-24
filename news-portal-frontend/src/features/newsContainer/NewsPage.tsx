@@ -5,13 +5,14 @@ import { useEffect } from 'react';
 import PostItem from './components/PostItem';
 import { Post } from '../../types';
 import { selectPosts } from './postsSlice';
+import { fetchPosts } from './postsThunks';
 
 const NewsPage = () => {
   let posts: Post[] = useAppSelector(selectPosts);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    // void dispatch(fetchProducts());
+    void dispatch(fetchPosts());
   }, [dispatch]);
 
   return (

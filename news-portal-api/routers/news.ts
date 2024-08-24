@@ -42,7 +42,8 @@ newsRouter.post('/', imageUpload.single('image'), async (req, res) => {
     image: req.file ? req.file.filename : null,
   };
 
-  return await fileDb.addNewPost(newPost);
+  const savedPost = await fileDb.addNewPost(newPost);
+  return res.send(savedPost);
 });
 
 newsRouter.delete('/:id', async (req, res) => {

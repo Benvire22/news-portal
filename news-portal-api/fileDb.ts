@@ -45,10 +45,14 @@ const fileDb = {
     const posts = [...data.posts];
     const comments = [...data.comments];
     const index = posts.findIndex((post) => post.id === id);
-    const imagePath = posts[index].image;
+    let imagePath = null;
 
     if (index > -1) {
       data.posts.splice(index, 1);
+
+      if (posts[index].image) {
+        imagePath = posts[index].image;
+      }
 
       if (imagePath) {
         fs.unlink(path.join(config.publicPath, imagePath), (err) => {
