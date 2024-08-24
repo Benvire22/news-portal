@@ -1,8 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
+import { postsReducer } from '../features/newsContainer/postsSlice';
 
 export const store = configureStore({
   reducer: {
-    // posts: postsSlice,
+    posts: postsReducer,
     // comments:
   }
 });
